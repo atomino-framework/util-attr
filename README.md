@@ -2,9 +2,7 @@
 
 Work easily with PHP8 Attributes!
 
-## Usage
-
-### Single Attribute
+## Single Attribute (`get`)
 
 Create the `Attribute` class as usual, just extend it from the `\Atomino\Neutrons\Attr` class.
 
@@ -27,7 +25,10 @@ class MyClass
 }
 ```
 
-Then get the attribute based on the reflection of the class or method. The IDE will know what type of attribute you requested, the code completion will work.
+#### Reflection based
+
+Then get the attribute based on the reflection of the class or method.
+The IDE will know what type of attribute you requested, the code completion will work.
 
 ```php
 $classRef = new ReflectionClass(MyClass::class);
@@ -39,7 +40,19 @@ $attr = MyAttr::get($methodRef);
 echo $attr->name;
 ```
 
-### Repeatable Attribute
+#### Name based
+
+If you don't want to use reflection, you can get the attribute by the class (and the method) name.
+
+```php
+$attr = MyAttr::get(MyClass::class);
+echo $attr->name;
+
+$attr = MyAttr::get(MyClass::class, "myMethod");
+echo $attr->name;
+```
+
+## Repeatable Attribute (`collect`)
 
 Create the `Attribute` class as usual, just extend it from the `\Atomino\Neutrons\Attr` class.
 
@@ -63,6 +76,8 @@ class MyClass
 }
 ```
 
+### Reflection based
+
 Then get the array of attributes based on the reflection of the class or method. The IDE will know what type of attribute you requested, the code completion will work.
 
 ```php
@@ -72,5 +87,28 @@ print_r($attr->name);
 
 $methodRef = $classRef->getMethod("myMethod");
 $attr = MyAttr::get($methodRef);
+print_r($attr->name);
+```
+
+### Name based
+
+If you don't want to use reflection, you can get the attributes by the class (and the method) name.
+
+```php
+$attrs = MyAttr::collect(MyClass::class);
+print_r($attr->name);
+
+$attr = MyAttr::collect(MyClass::class, "myMethod");
+print_r($attr->name);
+```
+
+## Query attributes of multiple reflections (`all`)
+
+If you want to retrieve the attributes of multiple classes or methods in bulk, you can do so using the `all` method.
+
+```php
+$classRef = new ReflectionClass(MyClass::class);
+$methodRef = $classRef->getMethod("myMethod");
+$attr = MyAttr::all($classRef, $methodRef);
 print_r($attr->name);
 ```

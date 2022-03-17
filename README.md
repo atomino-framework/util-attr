@@ -4,8 +4,8 @@ Work easily with PHP8 Attributes!
 
 ```php
 get(\ReflectionClass|\ReflectionMethod|string $reflection, string|null $method = null):static|null
-collect(\ReflectionClass|\ReflectionMethod|string $reflection, string|null $method = null):static|null
-all(\ReflectionClass|\ReflectionMethod ...$reflections):static[]
+all(\ReflectionClass|\ReflectionMethod|string $reflection, string|null $method = null):static|null
+collect(\ReflectionClass|\ReflectionMethod ...$reflections):static[]
 ```
 
 ## Create Attributes
@@ -41,6 +41,10 @@ class MyClass
 ```
 ## Query Single Attribute (`get`)
 
+```php
+get(\ReflectionClass|\ReflectionMethod|string $reflection, string|null $method = null):static|null
+```
+
 > As a return value you will get an Attribute instance or null
 
 ### Reflection based query
@@ -70,7 +74,11 @@ $attr = MyAttr::get(MyClass::class, "myMethod");
 echo $attr->name;
 ```
 
-## Query Repeatable Attribute (`collect`)
+## Query Repeatable Attribute (`all`)
+
+```php
+all(\ReflectionClass|\ReflectionMethod|string $reflection, string|null $method = null):static|null
+```
 
 > As a return value you will get an array with the Attribute instances in it
 
@@ -101,6 +109,10 @@ print_r($attr->name);
 ```
 
 ## Query attributes of multiple reflections (`collect`)
+
+```php
+collect(\ReflectionClass|\ReflectionMethod ...$reflections):static[]
+```
 
 > As a return value you will get an array with the Attribute instances in it
 

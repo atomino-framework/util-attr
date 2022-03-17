@@ -2,6 +2,12 @@
 
 Work easily with PHP8 Attributes!
 
+```php
+get(\ReflectionClass|\ReflectionMethod|string $reflection, string|null $method = null):static|null
+collect(\ReflectionClass|\ReflectionMethod|string $reflection, string|null $method = null):static|null
+all(\ReflectionClass|\ReflectionMethod ...$reflections):static[]
+```
+
 ## Create Attributes
 
 Create the `Attribute` class as usual, just extend it from the `\Atomino\Neutrons\Attr` class.
@@ -33,7 +39,7 @@ class MyClass
   public function myMethod(){...}
 }
 ```
-## Single Attribute (`get`)
+## Query Single Attribute (`get`)
 
 | As a return value you will get an Attribute instance
 
@@ -64,7 +70,7 @@ $attr = MyAttr::get(MyClass::class, "myMethod");
 echo $attr->name;
 ```
 
-## Repeatable Attribute (`collect`)
+## Query Repeatable Attribute (`collect`)
 
 | As a return value you will get an array with the Attribute instances in it
 

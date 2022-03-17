@@ -2,7 +2,7 @@
 
 Work easily with PHP8 Attributes!
 
-## Single Attribute (`get`)
+## Create Attributes
 
 Create the `Attribute` class as usual, just extend it from the `\Atomino\Neutrons\Attr` class.
 
@@ -12,20 +12,32 @@ class MyAttr extends \Atomino\Neutrons\Attr
 {
   public function __construct(public string $name){...}
 }
+
+#[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
+class MyRepeatableAttr extends \Atomino\Neutrons\Attr
+{
+  public function __construct(public string $name){...}
+}
 ```
 
 Add the attribute to a class or a method
 
 ```php
 #[MyAttr("my awesome class")]
+#[MyRepeatableAttr("my awesome class")]
 class MyClass
 {
   #[MyAttr("my awesome method")]
+  #[MyRepeatableAttr("my awesome method")]
+  #[MyRepeatableAttr("my awesome method two")]
   public function myMethod(){...}
 }
 ```
+## Single Attribute (`get`)
 
-#### Reflection based
+| As a return value you will get an Attribute instance
+
+### Reflection based query
 
 Then get the attribute based on the reflection of the class or method.
 The IDE will know what type of attribute you requested, the code completion will work.
@@ -40,7 +52,7 @@ $attr = MyAttr::get($methodRef);
 echo $attr->name;
 ```
 
-#### Name based
+### Name based query
 
 If you don't want to use reflection, you can get the attribute by the class (and the method) name.
 
@@ -54,29 +66,9 @@ echo $attr->name;
 
 ## Repeatable Attribute (`collect`)
 
-Create the `Attribute` class as usual, just extend it from the `\Atomino\Neutrons\Attr` class.
+| As a return value you will get an array with the Attribute instances in it
 
-```php
-#[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
-class MyAttr extends \Atomino\Neutrons\Attr
-{
-  public function __construct(public string $name){...}
-}
-```
-
-Add the attribute to a class or a method
-
-```php
-#[MyAttr("my awesome class")]
-class MyClass
-{
-  #[MyAttr("my awesome method")]
-  #[MyAttr("my awesome method's second attribute")]
-  public function myMethod(){...}
-}
-```
-
-### Reflection based
+### Reflection based query
 
 Then get the array of attributes based on the reflection of the class or method. The IDE will know what type of attribute you requested, the code completion will work.
 
@@ -90,19 +82,21 @@ $attr = MyAttr::get($methodRef);
 print_r($attr->name);
 ```
 
-### Name based
+### Name based query
 
 If you don't want to use reflection, you can get the attributes by the class (and the method) name.
 
 ```php
-$attrs = MyAttr::collect(MyClass::class);
+$attrs = MyRepeatableAttr::collect(MyClass::class);
 print_r($attr->name);
 
-$attr = MyAttr::collect(MyClass::class, "myMethod");
+$attr = MyRepeatableAttr::collect(MyClass::class, "myMethod");
 print_r($attr->name);
 ```
 
 ## Query attributes of multiple reflections (`all`)
+
+| As a return value you will get an array with the Attribute instances in it
 
 If you want to retrieve the attributes of multiple classes or methods in bulk, you can do so using the `all` method.
 

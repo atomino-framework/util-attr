@@ -80,11 +80,11 @@ Then get the array of attributes based on the reflection of the class or method.
 
 ```php
 $classRef = new ReflectionClass(MyClass::class);
-$attrs = MyAttr::all($classRef);
+$attrs = MyRepeatableAttr::all($classRef);
 print_r($attr->name);
 
 $methodRef = $classRef->getMethod("myMethod");
-$attr = MyAttr::get($methodRef);
+$attr = MyRepeatableAttr::all($methodRef);
 print_r($attr->name);
 ```
 
@@ -93,22 +93,22 @@ print_r($attr->name);
 If you don't want to use reflection, you can get the attributes by the class (and the method) name.
 
 ```php
-$attrs = MyRepeatableAttr::collect(MyClass::class);
+$attrs = MyRepeatableAttr::all(MyClass::class);
 print_r($attr->name);
 
-$attr = MyRepeatableAttr::collect(MyClass::class, "myMethod");
+$attr = MyRepeatableAttr::all(MyClass::class, "myMethod");
 print_r($attr->name);
 ```
 
-## Query attributes of multiple reflections (`all`)
+## Query attributes of multiple reflections (`collect`)
 
 > As a return value you will get an array with the Attribute instances in it
 
-If you want to retrieve the attributes of multiple classes or methods in bulk, you can do so using the `all` method.
+If you want to retrieve the attributes of multiple classes or methods in bulk, you can do so using the `collect` method.
 
 ```php
 $classRef = new ReflectionClass(MyClass::class);
 $methodRef = $classRef->getMethod("myMethod");
-$attr = MyAttr::all($classRef, $methodRef);
+$attr = MyAttr::collect($classRef, $methodRef);
 print_r($attr->name);
 ```

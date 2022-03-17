@@ -12,7 +12,7 @@ abstract class Attr{
 	}
 
 	/** @return static[] */
-	public static function collect(\ReflectionClass|\ReflectionMethod|string $reflection, string|null $method = null):static|null{
+	public static function collect(\ReflectionClass|\ReflectionMethod|string $reflection, string|null $method = null):array{
 		if(is_string($reflection)) $reflection = new \ReflectionClass($reflection);
 		if(is_string($method)) $reflection = $reflection->getMethod($method);
 		$attributes = $reflection->getAttributes(static::class);

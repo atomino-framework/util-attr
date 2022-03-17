@@ -1,0 +1,17 @@
+{
+    "name": "atomino/util-attr",
+    "description": "PHP Attribute handler",
+    "keywords": ["PHP Attribute"],
+    "license" : "MIT",
+    "authors" : [
+        {
+            "name": "Gergely Laborci",
+            "email": "gergely@laborci.hu"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Atomino\\Neutrons\\": "src/"
+        }
+    }
+}

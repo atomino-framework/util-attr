@@ -41,7 +41,7 @@ class MyClass
 ```
 ## Query Single Attribute (`get`)
 
-| As a return value you will get an Attribute instance
+> As a return value you will get an Attribute instance or null
 
 ### Reflection based query
 
@@ -72,7 +72,7 @@ echo $attr->name;
 
 ## Query Repeatable Attribute (`collect`)
 
-| As a return value you will get an array with the Attribute instances in it
+> As a return value you will get an array with the Attribute instances in it
 
 ### Reflection based query
 
@@ -102,7 +102,7 @@ print_r($attr->name);
 
 ## Query attributes of multiple reflections (`all`)
 
-| As a return value you will get an array with the Attribute instances in it
+> As a return value you will get an array with the Attribute instances in it
 
 If you want to retrieve the attributes of multiple classes or methods in bulk, you can do so using the `all` method.
 
